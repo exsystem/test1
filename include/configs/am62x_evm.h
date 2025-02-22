@@ -15,6 +15,10 @@
 /* NAND Driver config */
 #define CFG_SYS_NAND_BASE            0x51000000
 
+//added by wln
+#define CFG_SYS_UBOOT_BASE          0x0
+#define BOOT_DEVICE_NOR              1
+
 #define CFG_SYS_NAND_ECCPOS		{ 2, 3, 4, 5, 6, 7, 8, 9, \
 					 10, 11, 12, 13, 14, 15, 16, 17, \
 					 18, 19, 20, 21, 22, 23, 24, 25, \

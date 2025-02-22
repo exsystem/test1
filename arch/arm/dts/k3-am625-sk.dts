@@ -202,8 +202,8 @@
 
 &cpsw3g {
 	pinctrl-names = "default";
-	pinctrl-0 = <&main_rgmii1_pins_default
-		     &main_rgmii2_pins_default>;
+	pinctrl-0 = <&main_rgmii1_pins_default>,
+		     <&main_rgmii2_pins_default>;
 
 	cpts@3d000 {
 		/* MAP HW3_TS_PUSH to GENF1 */
@@ -212,17 +212,9 @@
 };
 
 &cpsw_port2 {
+	bootph-all;
 	phy-mode = "rgmii-rxid";
 	phy-handle = <&cpsw3g_phy1>;
-};
-
-&cpsw3g_mdio {
-	cpsw3g_phy1: ethernet-phy@1 {
-		reg = <1>;
-		ti,rx-internal-delay = <DP83867_RGMIIDCTL_2_00_NS>;
-		ti,fifo-depth = <DP83867_PHYCR_FIFO_DEPTH_4_B_NIB>;
-		ti,min-output-impedance;
-	};
 };
 
 &mailbox0_cluster0 {
@@ -269,12 +261,13 @@
 
 			partition@80000 {
 				label = "ospi.tispl";
-				reg = <0x80000 0x200000>;
+				#reg = <0x80000 0x200000>;
+				reg = <0x280000 0x200000>;
 			};
 
 			partition@280000 {
 				label = "ospi.u-boot";
-				reg = <0x280000 0x400000>;
+				reg = <0xc00000 0x400000>;
 			};
 
 			partition@680000 {
