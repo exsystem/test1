@@ -211,12 +211,6 @@
 	};
 };
 
-&cpsw_port2 {
-	bootph-all;
-	phy-mode = "rgmii-rxid";
-	phy-handle = <&cpsw3g_phy1>;
-};
-
 &mailbox0_cluster0 {
 	mbox_m4_0: mbox-m4-0 {
 		ti,mbox-rx = <0 0 0>;

@@ -174,6 +174,13 @@
 		>;
 	};
 
+    phy_reset_pins_default: php-reset-pins-default {
+        pinctrl-single,pins = <
+           AM62X_IOPAD(0x019c, PIN_OUTPUT, 7) /* (A18) GPIO1_9 */
+           AM62X_IOPAD(0x01a0, PIN_OUTPUT, 7) /* (D18) GPIO1_10 */ 
+        >;
+    };
+
 	main_i2c0_pins_default: main-i2c0-default-pins {
 		bootph-all;
 		pinctrl-single,pins = <
@@ -491,13 +498,22 @@
 	bootph-all;
 	pinctrl-names = "default";
 	pinctrl-0 = <&main_rgmii1_pins_default>,
-		     <&main_rgmii2_pins_default>;
+		     <&main_rgmii2_pins_default>,
+		     <&phy_reset_pins_default>;
 };
 
 &cpsw_port1 {
 	bootph-all;
+	status = "okay";
 	phy-mode = "rgmii-rxid";
 	phy-handle = <&cpsw3g_phy0>;
+};
+
+&cpsw_port2 {
+	bootph-all;
+	status = "okay";
+	phy-mode = "rgmii-rxid";
+	phy-handle = <&cpsw3g_phy1>;
 };
 
 
@@ -509,14 +525,14 @@
 
 	cpsw3g_phy0: ethernet-phy@0 {
 		bootph-all;
-		reg = <1>;
+		reg = <0>;
 		ti,rx-internal-delay = <DP83867_RGMIIDCTL_2_00_NS>;
 		ti,fifo-depth = <DP83867_PHYCR_FIFO_DEPTH_4_B_NIB>;
 		ti,min-output-impedance;
 	};
 	
 	cpsw3g_phy1: ethernet-phy@1 {
-		reg = <0>;
+		reg = <1>;
 		ti,rx-internal-delay = <DP83867_RGMIIDCTL_2_00_NS>;
 		ti,fifo-depth = <DP83867_PHYCR_FIFO_DEPTH_4_B_NIB>;
 		ti,min-output-impedance;
